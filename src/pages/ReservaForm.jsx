@@ -48,7 +48,7 @@ const ReservaForm = ({ onReserve, selectedReservation }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const {_id} = JSON.parse("usuario");
+    const {_id} = JSON.parse(window.localStorage.getItem("usuario"));
     const idUsuario = _id;
     console.log(_id);
 
@@ -61,17 +61,17 @@ const ReservaForm = ({ onReserve, selectedReservation }) => {
       const resp = await crearReserva(datosReserva);
       console.log(resp);
 
-      if (!user) {
-        console.error("Usuario no autenticado");
-        return;
-      }
+      // if (!user) {
+      //   console.error("Usuario no autenticado");
+      //   return;
+      // }
 
-      if (selectedReservation) {
-        await axios.put(`https://backend-vesubio.onrender.com/api/reservas/${selectedReservation._id}`, formData);
-      } else {
-        const response = await axios.post('https://backend-vesubio.onrender.com/api/reservas', formData);
-        onReserve(response.data);
-      }
+      // if (selectedReservation) {
+      //   await axios.put(`https://backend-vesubio.onrender.com/api/reservas/${selectedReservation._id}`, formData);
+      // } else {
+      //   const response = await axios.post('https://backend-vesubio.onrender.com/api/reservas', formData);
+      //   onReserve(response.data);
+      // }
 
       setFormData({
         nombre: '',
