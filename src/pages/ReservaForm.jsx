@@ -1,7 +1,8 @@
 // ReservationForm.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../css/reserva.css'
+import '../css/reserva.css';
+import { crearReserva } from '../helpers/reservaApi';
 
 const ReservaForm = ({ onReserve, selectedReservation }) => {
   const [formData, setFormData] = useState({
@@ -30,6 +31,7 @@ const ReservaForm = ({ onReserve, selectedReservation }) => {
     if (selectedReservation) {
       setFormData({
         nombre: selectedReservation.nombre,
+        usuario: selectedReservation.usuario,
         categoria: selectedReservation.categoria,
         fecha: selectedReservation.fecha,
         hora: selectedReservation.hora,
@@ -46,14 +48,23 @@ const ReservaForm = ({ onReserve, selectedReservation }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const {_id} = JSON.parse("usuario");
+    const idUsuario = _id;
+    console.log(_id);
+
     try {
+      const { nombre, categoria, fecha, hora, precio, personas } = formData;
+
+      const datosReserva = { nombre, categoria, fecha, hora, precio, personas, usuario: idUsuario };
+
+      console.log(datosReserva);
+      const resp = await crearReserva(datosReserva);
+      console.log(resp);
+
       if (!user) {
         console.error("Usuario no autenticado");
         return;
       }
-
-      // Agrega el usuario al formulario
-      formData.usuario = user;
 
       if (selectedReservation) {
         await axios.put(`https://backend-vesubio.onrender.com/api/reservas/${selectedReservation._id}`, formData);

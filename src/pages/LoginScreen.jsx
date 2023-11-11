@@ -41,7 +41,10 @@ const LoginScreen = ({ iniciarSesion, guardarUsuario }) => {
 
     if (resp?.token) {
       //Guardar en localStorage
+      localStorage.setItem("usuario", JSON.stringify(resp.usuario));
       localStorage.setItem("token", JSON.stringify(resp.token));
+
+
       //Ejecutar F iniciarSesion
       iniciarSesion();
 

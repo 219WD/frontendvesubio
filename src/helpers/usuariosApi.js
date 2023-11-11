@@ -1,4 +1,5 @@
-const url = "https://backend-vesubio.onrender.com/api/usuarios";
+const url = "https://backend-vesubio.onrender.com/api/usuarios/";
+
 
 //traer usuarios
 export const getUsuarios = async () => {};
